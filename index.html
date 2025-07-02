@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pesan Kop Surat</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .wrapper {
+      padding: 16px;
+    }
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      max-width: 480px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .deskripsi {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #d35400;
+      background: #fff6e5;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .note b {
+      display: block;
+      font-size: 16px;
+      color: #c0392b;
+      margin-bottom: 6px;
+    }
+    .hint {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background-color: #25d366;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1ebe5d;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <form onsubmit="sendToWhatsApp(); return false;">
+      <h2>Pesan "Kop Surat"</h2>
+      <div class="deskripsi">
+        Kop surat adalah lembaran lembaran kosong yang pada bagian atasnya terdapat desain dari perusahaan yang mencakup nama perusahaan, logo, alamat, nomer telepon dan badan hukum. Kop surat ini digunakan sebagai media surat menyurat perusahaan, instansi, sekolah atau kantor yang berfungsi sebagai pemberi identitas dari perusahaan atau kantor Anda. Hal tersebut karena kop surat sifatnya unik dan berisi alamat dan kontak dari perusahaan atau kantor Anda.
+      </div>
+
+      <label>Nama Anda</label>
+      <input type="text" id="nama" required>
+
+      <label>Nomor WhatsApp Anda</label>
+      <input type="tel" id="nowa" pattern="[0-9]+" required>
+
+      <label>Kertas</label>
+      <select id="kertas">
+        <option value="HVS 70 gr">HVS 70 gr</option>
+        <option value="HVS 80 gr">HVS 80 gr</option>
+        <option value="HVS 100 gr">HVS 100 gr</option>
+      </select>
+
+      <label>Print</label>
+      <select id="print">
+        <option value="Warna">Warna</option>
+        <option value="Hitam-Putih">Hitam-Putih</option>
+      </select>
+
+      <label>Ukuran</label>
+      <select id="ukuran">
+        <option value="A4">A4</option>
+        <option value="A3">A3</option>
+        <option value="F4">F4</option>
+        <option value="A5">A5</option>
+      </select>
+
+      <label>Sisi Cetak</label>
+      <select id="sisi">
+        <option value="1 Sisi">1 Sisi ( Depan Saja )</option>
+        <option value="2 Sisi">2 Sisi ( Depan Belakang )</option>
+      </select>
+
+      <label>Jumlah Kertas</label>
+      <input type="number" id="jumlah" min="100" value="100" required>
+      <div class="hint">Minim 100 pcs</div>
+
+      <label>Kapan Dibutuhkan?</label>
+      <input type="date" id="tanggal" required>
+
+      <label>Pada Jam Berapa?</label>
+      <input type="time" id="jam" required>
+
+      <label>Catatan Khusus untuk Admin Kami</label>
+      <textarea id="catatan" rows="4"></textarea>
+
+      <div class="note">
+        <b>Penting !</b>
+        Estimasi Dateline Yang Anda Atur Bisa Berubah Sesuai Kondisi Antrian, Anda Bisa Atur Negosiasi Waktu Dateline Dengan Admin Kami. <b>"Pastikan File Anda Ready / Siap Print"</b>
+      </div>
+
+      <button type="submit">Cek Harga ke Admin Metropolis Print</button>
+    </form>
+  </div>
+
+  <script>
+    function formatTanggalIndo(tanggalInput) {
+      const bulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const hariIndo = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const dateObj = new Date(tanggalInput);
+      const hari = hariIndo[dateObj.getDay()];
+      const tanggal = dateObj.getDate();
+      const bulan = bulanIndo[dateObj.getMonth()];
+      const tahun = dateObj.getFullYear();
+      return `${hari}, ${tanggal} ${bulan} ${tahun}`;
+    }
+
+    function sendToWhatsApp() {
+      const adminWa = "6282335222268";
+      const nama = document.getElementById("nama").value;
+      const nowa = document.getElementById("nowa").value;
+      const kertas = document.getElementById("kertas").value;
+      const print = document.getElementById("print").value;
+      const ukuran = document.getElementById("ukuran").value;
+      const sisi = document.getElementById("sisi").value;
+      const jumlah = document.getElementById("jumlah").value;
+      const tanggal = formatTanggalIndo(document.getElementById("tanggal").value);
+      const jam = document.getElementById("jam").value;
+      const catatan = document.getElementById("catatan").value || "-";
+
+      const pesan =
+        `📌 Pemesanan Kop Surat\n\n` +
+        `👤 Nama: ${nama}\n` +
+        `📱 No. WA: ${nowa}\n` +
+        `📄 Kertas: ${kertas}\n` +
+        `🎨 Print: ${print}\n` +
+        `📐 Ukuran: ${ukuran}\n` +
+        `🖨️ Sisi Cetak: ${sisi}\n` +
+        `📦 Jumlah: ${jumlah}\n` +
+        `🗓️ Tanggal: ${tanggal}\n` +
+        `⏰ Jam: ${jam}\n` +
+        `📝 Catatan: ${catatan}`;
+
+      const url = `https://wa.me/${adminWa}?text=${encodeURIComponent(pesan)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
